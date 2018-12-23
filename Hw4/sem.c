@@ -47,5 +47,19 @@ void checkFuncInvoke(struct SymTable* table, char* name, int linenum)
 	ERR_FuncInvoke(linenum, name);
 }
 
-
-// void checkConvertType()
+int checkConstDeclarDuplicate(struct SymTableNode *nowNode, struct SymTable *table, int linenum)
+{
+	if(table->tail == NULL)
+		return CORRECT;
+	struct SymTableNode *temp = table->head;
+	while(temp!=NULL)
+	{
+		if(temp->kind == CONSTANT_t && !strncmp(temp->name,nowNode->name,32))
+		{
+			printf("##########Error at Line %d: const variable %s has already declared before.##########\n",linenum, nowNode->name);
+			return ERROR;
+		}
+		temp = temp->next;
+	}
+	return CORRECT;
+}

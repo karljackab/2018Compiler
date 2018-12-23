@@ -431,10 +431,12 @@ const_decl : CONST scalar_type const_list SEMICOLON
 		{
 			struct SymTableNode *temp = list->next;
 			list->next = NULL;
-			insertTableNode(symbolTableList->tail,list);
+			if(!checkConstDeclarDuplicate(list, symbolTableList->tail, linenum))
+				insertTableNode(symbolTableList->tail,list);
 			list = temp;
 		}
-		insertTableNode(symbolTableList->tail,list);
+		if(!checkConstDeclarDuplicate(list, symbolTableList->tail, linenum))
+			insertTableNode(symbolTableList->tail,list);
 	}
 ;
 
@@ -447,7 +449,7 @@ const_list : const_list COMMA ID ASSIGN_OP literal_const
 					temp = temp->next;
 				}
 				temp->next = createConstNode($3,scope,type,$5);
-				$$ = temp;
+				$$ = $1;
 				free($3);
 			}
 		  | ID ASSIGN_OP literal_const

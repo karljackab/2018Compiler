@@ -11,4 +11,6 @@ void ERR_FuncDuplDeclared(int linenum, char*name);
 void ERR_FuncInvoke(int linenum, char*name);
 void checkFuncInvoke(struct SymTable* table, char* name, int linenum);
 
+int checkConstDeclarDuplicate(struct SymTableNode *nowNode, struct SymTable *table, int linenum);
+
 #endif
