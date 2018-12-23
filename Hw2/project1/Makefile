@@ -1,6 +1,7 @@
 #makefile for scanner
 LEX = lex
 LEXFN = lex.l
+OUTPUT = parser
 CC = gcc
 CFLAGS = -O2
 LIBS = -lfl -lbsd
@@ -19,5 +20,3 @@ test:
 clean:
 	$(RM) $(SCANNERN)
 	$(RM) $(SCANNERSN)
-	
-
